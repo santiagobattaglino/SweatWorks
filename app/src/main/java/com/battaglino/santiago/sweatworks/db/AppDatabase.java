@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.battaglino.santiago.sweatworks.BuildConfig;
 import com.battaglino.santiago.sweatworks.db.converters.DateConverter;
+import com.battaglino.santiago.sweatworks.db.converters.NameConverter;
 import com.battaglino.santiago.sweatworks.db.converters.PictureConverter;
 import com.battaglino.santiago.sweatworks.db.dao.UserDao;
 import com.battaglino.santiago.sweatworks.db.entities.User;
@@ -19,7 +20,7 @@ import com.battaglino.santiago.sweatworks.db.entities.User;
 @Database(entities = {
         User.class
 }, version = 1)
-@TypeConverters({DateConverter.class, PictureConverter.class})
+@TypeConverters({DateConverter.class, PictureConverter.class, NameConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;

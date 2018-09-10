@@ -48,12 +48,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     }
 
     private void setUpUser(User user, UserViewHolder viewHolder) {
-        viewHolder.observacion.setText(String.format(Locale.getDefault(), "uid: %d cell: %s email: %s gender: %s nat: %s",
+        /*viewHolder.observacion.setText(String.format(Locale.getDefault(), "uid: %d cell: %s email: %s gender: %s nat: %s",
                 user.uid,
                 user.cell,
                 user.email,
                 user.gender,
-                user.nat));
+                user.nat));*/
 
         Picasso.get().load(user.picture.thumbnail).into(viewHolder.thumbnail);
     }
@@ -102,8 +102,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         @BindView(R.id.thumbnail)
         ImageView thumbnail;
 
-        @BindView(R.id.observacion)
-        TextView observacion;
+        //@BindView(R.id.observacion)
+        //TextView observacion;
 
         UserViewHolder(View view, UserAdapter.OnViewHolderClick listener) {
             super(view);

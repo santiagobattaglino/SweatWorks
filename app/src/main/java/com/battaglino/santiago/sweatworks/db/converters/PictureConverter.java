@@ -1,6 +1,7 @@
 package com.battaglino.santiago.sweatworks.db.converters;
 
 import android.arch.persistence.room.TypeConverter;
+import android.text.TextUtils;
 
 import com.battaglino.santiago.sweatworks.db.entities.Picture;
 
@@ -16,8 +17,8 @@ public class PictureConverter {
 
     @TypeConverter
     public static Picture toPicture(String thumbnail) {
-        if (thumbnail == null) {
-            return (null);
+        if (TextUtils.isEmpty(thumbnail)) {
+            return null;
         }
 
         Picture picture = new Picture();

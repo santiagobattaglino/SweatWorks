@@ -30,9 +30,9 @@ public class User {
     @Expose
     public String gender;
 
-    //@SerializedName("name")
-    //@Expose
-    //public Name name;
+    @SerializedName("name")
+    @Expose
+    public Name name;
 
     //@SerializedName("location")
     //public Location location;

@@ -1,5 +1,8 @@
 package com.battaglino.santiago.sweatworks.user.mvvm.view;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +12,13 @@ import android.view.View;
 import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.base.mvvm.view.BaseView;
 import com.battaglino.santiago.sweatworks.db.entities.User;
+import com.battaglino.santiago.sweatworks.user.activity.ItemDetailActivity;
 import com.battaglino.santiago.sweatworks.user.activity.UserGridActivity;
 import com.battaglino.santiago.sweatworks.user.adapter.UserAdapter;
+import com.battaglino.santiago.sweatworks.user.fragment.ItemDetailFragment;
 import com.battaglino.santiago.sweatworks.user.mvvm.viewmodel.UserGridViewModel;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -64,30 +71,26 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel> 
         GridLayoutManager mLayoutManager = new GridLayoutManager(baseActivity.get(), 5);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //MovimientoAdapter adapter = new MovimientoAdapter(baseActivity.get(), this, mMovimientos);
         UserAdapter adapter = new UserAdapter(baseActivity.get(), this, mUsers);
 
         mRecyclerView.setAdapter(adapter);
     }
 
     @Override
-    public void onClick(View view, int position, User item) {
-            /*DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+    public void onClick(View view, int position, User user) {
             if (mTwoPane) {
                 Bundle arguments = new Bundle();
-                arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
+                arguments.putParcelable(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
                 ItemDetailFragment fragment = new ItemDetailFragment();
                 fragment.setArguments(arguments);
-                mParentActivity.getSupportFragmentManager().beginTransaction()
+                baseActivity.get().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.item_detail_container, fragment)
                         .commit();
             } else {
-                Context context = view.getContext();
-                Intent intent = new Intent(context, ItemDetailActivity.class);
-                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
-
-                context.startActivity(intent);
-            }*/
+                Intent intent = new Intent(baseActivity.get(), ItemDetailActivity.class);
+                intent.putExtra(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
+                baseActivity.get().startActivity(intent);
+            }
     }
 
     private void setUpNavigation(Toolbar toolbar) {
