@@ -1,9 +1,9 @@
 package com.battaglino.santiago.sweatworks.db.entities;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
-import android.location.Location;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -30,9 +30,9 @@ public class User {
     @Expose
     public String gender;
 
-    //@SerializedName("name")
-    //@Expose
-    //public Name name;
+    @SerializedName("name")
+    @Expose
+    public Name name;
 
     //@SerializedName("location")
     //public Location location;
@@ -65,9 +65,9 @@ public class User {
     //@Expose
     //public Id id;
 
-    //@SerializedName("picture")
-    //@Expose
-    //public Picture picture;
+    @SerializedName("picture")
+    @Expose
+    public Picture picture;
 
     @SerializedName("nat")
     @Expose
@@ -76,16 +76,5 @@ public class User {
     @ParcelConstructor
     public User() {
 
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "gender='" + gender + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", cell='" + cell + '\'' +
-                ", nat='" + nat + '\'' +
-                '}';
     }
 }

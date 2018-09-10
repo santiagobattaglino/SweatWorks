@@ -53,5 +53,7 @@ ext {
     rxAndroidVersion = '2.0.2'
     rxBindingVersion = '2.1.1'
 
+    picassoVersion = '2.71828'
+
     junitVersion = '4.12'
 }

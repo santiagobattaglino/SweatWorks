@@ -77,6 +77,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.rxAndroidVersion}"
     implementation "com.jakewharton.rxbinding2:rxbinding:${rootProject.ext.rxBindingVersion}"
 
+    // Picasso
+    implementation "com.squareup.picasso:picasso:${rootProject.ext.picassoVersion}"
+
     // Test
     testImplementation "junit:junit:${rootProject.ext.junitVersion}"
     androidTestImplementation "com.android.support.test:runner:${rootProject.ext.androidRunnerVersion}"

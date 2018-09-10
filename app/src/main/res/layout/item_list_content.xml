@@ -8,6 +8,12 @@
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@string/thumbnail" />
+
     <TextView
         android:id="@+id/observacion"
         android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import org.parceler.Parcel;
 /**
  * Created by Santiago Battaglino.
  */
+@Parcel
 public class Name {
 
     @SerializedName("title")
