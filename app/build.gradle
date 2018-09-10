@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    defaultConfig {
+        applicationId "com.battaglino.santiago.sweatworks"
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField 'String', 'API_URL', '"https://randomuser.me/"'
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+    buildToolsVersion rootProject.androidBuildToolsVersion
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.androidSupportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${rootProject.ext.androidSupportLibVersion}"
+    implementation "com.android.support:design:${rootProject.ext.androidSupportLibVersion}"
+    implementation "com.android.support.constraint:constraint-layout:${rootProject.ext.androidConstraintLayoutVersion}"
+
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:${rootProject.ext.butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterknifeVersion}"
+
+    // Parceler
+    implementation "org.parceler:parceler-api:${rootProject.ext.parcelerVersion}"
+    annotationProcessor "org.parceler:parceler:${rootProject.ext.parcelerVersion}"
+
+    // ArchLifecycle
+    implementation "android.arch.lifecycle:extensions:${rootProject.ext.androidArchLifecycleVersion}"
+    annotationProcessor "android.arch.lifecycle:compiler:${rootProject.ext.androidArchLifecycleVersion}"
+
+    // ArchPersistence
+    implementation "android.arch.persistence.room:runtime:${rootProject.ext.androidArchRoomVersion}"
+    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.androidArchRoomVersion}"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:${rootProject.ext.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${rootProject.ext.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVersion}"
+
+    // Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.retrofitVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okHttpVersion}"
+
+    // Gson
+    implementation "com.google.code.gson:gson:${rootProject.ext.gsonVersion}"
+
+    // RxJava2
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.rxJavaVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.rxAndroidVersion}"
+    implementation "com.jakewharton.rxbinding2:rxbinding:${rootProject.ext.rxBindingVersion}"
+
+    // Test
+    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
+    androidTestImplementation "com.android.support.test:runner:${rootProject.ext.androidRunnerVersion}"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:${rootProject.ext.androidEspressoVersion}", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+}
