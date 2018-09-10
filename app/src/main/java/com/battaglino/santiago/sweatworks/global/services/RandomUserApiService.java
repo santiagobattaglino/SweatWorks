@@ -3,8 +3,6 @@ package com.battaglino.santiago.sweatworks.global.services;
 import com.battaglino.santiago.sweatworks.db.entities.Result;
 import com.battaglino.santiago.sweatworks.db.entities.User;
 
-import java.util.List;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

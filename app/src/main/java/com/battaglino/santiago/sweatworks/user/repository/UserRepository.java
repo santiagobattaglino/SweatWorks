@@ -71,12 +71,12 @@ public class UserRepository extends UseCaseRepository<User> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("repo", e.getMessage());
+
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.d("repo", "onComplete");
+
                     }
                 });
     }
