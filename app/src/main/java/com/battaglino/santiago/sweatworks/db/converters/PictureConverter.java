@@ -5,6 +5,8 @@ import android.text.TextUtils;
 
 import com.battaglino.santiago.sweatworks.db.entities.Picture;
 
+import java.util.Locale;
+
 /**
  * Created by Santiago Battaglino.
  */
@@ -12,7 +14,7 @@ public class PictureConverter {
 
     @TypeConverter
     public static String fromPicture(Picture picture) {
-        return picture == null ? null : picture.thumbnail;
+        return picture == null ? null : String.format(Locale.getDefault(), "%s %s %s", picture.large, picture.medium, picture.thumbnail);
     }
 
     @TypeConverter
@@ -21,8 +23,11 @@ public class PictureConverter {
             return null;
         }
 
+        String[] parts = thumbnail.split(" ");
         Picture picture = new Picture();
-        picture.thumbnail = thumbnail;
+        picture.large = parts[0];
+        picture.medium = parts[1];
+        picture.thumbnail = parts[2];
 
         return picture;
     }
