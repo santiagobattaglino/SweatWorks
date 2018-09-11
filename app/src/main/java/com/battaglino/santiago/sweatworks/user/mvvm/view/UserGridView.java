@@ -1,7 +1,6 @@
 package com.battaglino.santiago.sweatworks.user.mvvm.view;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -37,8 +36,6 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
-    private EndlessRecyclerViewScrollListener mScrollListener;
-
     private UserAdapter mAdapter;
 
     private boolean mTwoPane;
@@ -52,9 +49,7 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         setUpNavigation(toolbar);
         setUpGrid();
 
-        if (baseActivity.get().findViewById(R.id.item_detail_container) != null) {
-            mTwoPane = true;
-        }
+        setUpTwoPane();
     }
 
     @Override
@@ -70,16 +65,12 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     @Override
     public void onClick(View view, int position, User user) {
         if (mTwoPane) {
-            Bundle arguments = new Bundle();
-            arguments.putParcelable(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
-            ItemDetailFragment fragment = new ItemDetailFragment();
-            fragment.setArguments(arguments);
             baseActivity.get().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.item_detail_container, fragment)
+                    .replace(R.id.item_detail_container, ItemDetailFragment.newInstance(user))
                     .commit();
         } else {
             Intent intent = new Intent(baseActivity.get(), ItemDetailActivity.class);
-            intent.putExtra(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
+            intent.putExtra(Constants.ARG_USER, Parcels.wrap(user));
             baseActivity.get().startActivity(intent);
         }
     }
@@ -99,7 +90,7 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         GridLayoutManager layoutManager = new GridLayoutManager(baseActivity.get(), Constants.GRID_SPAN_COUNT);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+        EndlessRecyclerViewScrollListener mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 baseViewModel.fetchUsersFromServer(page);
@@ -111,6 +102,12 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         mAdapter = new UserAdapter(baseActivity.get(), this, mUsers);
 
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void setUpTwoPane() {
+        if (baseActivity.get().findViewById(R.id.item_detail_container) != null) {
+            mTwoPane = true;
+        }
     }
 
     private void setUpNavigation(Toolbar toolbar) {

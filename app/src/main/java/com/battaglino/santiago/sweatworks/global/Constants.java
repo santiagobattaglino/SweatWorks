@@ -8,4 +8,6 @@ public class Constants {
     public static final int GRID_SPAN_COUNT = 5;
     public static final int PAGE_RESULTS = 50;
 
+    public static final String ARG_USER = "user";
+
 }

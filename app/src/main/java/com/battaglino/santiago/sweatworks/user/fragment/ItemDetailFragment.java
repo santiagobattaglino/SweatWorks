@@ -1,69 +1,61 @@
 package com.battaglino.santiago.sweatworks.user.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.db.entities.User;
-import com.battaglino.santiago.sweatworks.user.activity.ItemDetailActivity;
-import com.battaglino.santiago.sweatworks.user.activity.UserGridActivity;
+import com.battaglino.santiago.sweatworks.global.Constants;
 
-/**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link UserGridActivity}
- * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
- * on handsets.
- */
+import org.parceler.Parcels;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ItemDetailFragment extends Fragment {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_USER = "user";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private User mItem;
+    @BindView(R.id.item_detail)
+    TextView textView;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    private User mUser;
+
     public ItemDetailFragment() {
+
+    }
+
+    public static ItemDetailFragment newInstance(User user) {
+        ItemDetailFragment fragment = new ItemDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(Constants.ARG_USER, Parcels.wrap(user));
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        /*if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
-            }
-        }*/
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.item_detail, container, false);
+        ButterKnife.bind(this, view);
+        if (getArguments() != null) {
+            mUser = Parcels.unwrap(getArguments().getParcelable(Constants.ARG_USER));
+        }
+        setUpView();
+        return view;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.item_detail, container, false);
-
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            //((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
+    private void setUpView() {
+        Activity activity = this.getActivity();
+        CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(mUser.name.first);
         }
 
-        return rootView;
+        textView.setText(mUser.email);
     }
 }
