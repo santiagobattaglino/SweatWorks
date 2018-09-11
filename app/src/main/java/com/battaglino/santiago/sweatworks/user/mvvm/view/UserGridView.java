@@ -2,7 +2,6 @@ package com.battaglino.santiago.sweatworks.user.mvvm.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +19,7 @@ import com.battaglino.santiago.sweatworks.user.mvvm.viewmodel.UserGridViewModel;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,7 +28,8 @@ import butterknife.ButterKnife;
 /**
  * Created by Santiago Battaglino.
  */
-public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel> implements UserAdapter.OnViewHolderClick {
+public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
+        implements UserAdapter.OnViewHolderClick {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -38,15 +39,18 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel> 
 
     private EndlessRecyclerViewScrollListener mScrollListener;
 
+    private UserAdapter mAdapter;
+
     private boolean mTwoPane;
 
-    private List<User> mUsers;
+    private List<User> mUsers = new ArrayList<>();
 
     public UserGridView(UserGridActivity activity, UserGridViewModel viewModel) {
         super(activity, viewModel);
         ButterKnife.bind(this, activity);
 
         setUpNavigation(toolbar);
+        setUpGrid();
 
         if (baseActivity.get().findViewById(R.id.item_detail_container) != null) {
             mTwoPane = true;
@@ -86,18 +90,14 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel> 
                 baseViewModel.fetchUsersFromServer(1);
             } else {
                 mUsers = users;
-                setUpGrid();
+                mAdapter.addAll(mUsers);
             }
         });
     }
 
     private void setUpGrid() {
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
         GridLayoutManager layoutManager = new GridLayoutManager(baseActivity.get(), Constants.GRID_SPAN_COUNT);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(new UserAdapter(baseActivity.get(), this, mUsers));
 
         mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
@@ -107,6 +107,10 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel> 
         };
 
         mRecyclerView.addOnScrollListener(mScrollListener);
+
+        mAdapter = new UserAdapter(baseActivity.get(), this, mUsers);
+
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void setUpNavigation(Toolbar toolbar) {
