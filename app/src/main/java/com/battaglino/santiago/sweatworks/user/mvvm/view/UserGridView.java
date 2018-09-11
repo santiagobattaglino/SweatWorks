@@ -5,6 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.base.mvvm.view.BaseView;
@@ -31,11 +32,11 @@ import butterknife.ButterKnife;
 public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         implements UserAdapter.OnViewHolderClick {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
     @BindView(R.id.search_view)
     public MaterialSearchView mSearchView;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
@@ -49,10 +50,9 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     public UserGridView(UserGridActivity activity, UserGridViewModel viewModel) {
         super(activity, viewModel);
         ButterKnife.bind(this, activity);
-
         setUpNavigation(toolbar);
+        setUpSearchView();
         setUpGrid();
-
         setUpTwoPane();
     }
 
@@ -86,6 +86,7 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
             } else {
                 mUsers = users;
                 mAdapter.addAll(mUsers);
+                mSearchView.setSuggestions(User.getDataSource(mUsers).toArray(new String[0]));
             }
         });
     }
@@ -112,6 +113,34 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         if (baseActivity.get().findViewById(R.id.item_detail_container) != null) {
             mTwoPane = true;
         }
+    }
+
+    private void setUpSearchView() {
+
+        mSearchView.setEllipsize(true);
+
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(baseActivity.get(), query, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+            }
+        });
     }
 
     private void setUpNavigation(Toolbar toolbar) {

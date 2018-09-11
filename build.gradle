@@ -55,5 +55,7 @@ ext {
 
     picassoVersion = '2.71828'
 
+    materialSearchViewVersion = '1.4.0'
+
     junitVersion = '4.12'
 }

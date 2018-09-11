@@ -1,7 +1,6 @@
 package com.battaglino.santiago.sweatworks.db.entities;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -10,6 +9,10 @@ import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
 import org.parceler.ParcelConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.annotations.NonNull;
 
@@ -76,5 +79,19 @@ public class User {
     @ParcelConstructor
     public User() {
 
+    }
+
+    public static List<String> getDataSource(List<User> users) {
+        final List<String> items = new ArrayList<>();
+        if (users != null) {
+            for (User user : users) {
+                items.add(user.getFullName());
+            }
+        }
+        return items;
+    }
+
+    private String getFullName() {
+        return String.format(Locale.getDefault(), "%s %s %s", name.first, name.last, name.title);
     }
 }
