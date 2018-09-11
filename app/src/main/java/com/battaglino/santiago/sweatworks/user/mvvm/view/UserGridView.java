@@ -1,6 +1,5 @@
 package com.battaglino.santiago.sweatworks.user.mvvm.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,6 +11,7 @@ import android.view.View;
 import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.base.mvvm.view.BaseView;
 import com.battaglino.santiago.sweatworks.db.entities.User;
+import com.battaglino.santiago.sweatworks.global.Constants;
 import com.battaglino.santiago.sweatworks.user.activity.ItemDetailActivity;
 import com.battaglino.santiago.sweatworks.user.activity.UserGridActivity;
 import com.battaglino.santiago.sweatworks.user.adapter.UserAdapter;
@@ -36,6 +36,8 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel> 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
+    private EndlessRecyclerViewScrollListener mScrollListener;
+
     private boolean mTwoPane;
 
     private List<User> mUsers;
@@ -53,44 +55,58 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel> 
 
     @Override
     protected void subscribeUiToLiveData() {
-        baseViewModel.getUsers().observe(baseActivity.get(), users -> {
-            if (users == null || users.size() <= 0) {
-                baseViewModel.fetchFromServer();
-            } else {
-                mUsers = users;
-                showDataInUi();
-            }
-        });
+        subscribeUsers();
     }
 
     @Override
     protected void showDataInUi() {
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        GridLayoutManager mLayoutManager = new GridLayoutManager(baseActivity.get(), 5);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        UserAdapter adapter = new UserAdapter(baseActivity.get(), this, mUsers);
-
-        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View view, int position, User user) {
-            if (mTwoPane) {
-                Bundle arguments = new Bundle();
-                arguments.putParcelable(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
-                ItemDetailFragment fragment = new ItemDetailFragment();
-                fragment.setArguments(arguments);
-                baseActivity.get().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.item_detail_container, fragment)
-                        .commit();
+        if (mTwoPane) {
+            Bundle arguments = new Bundle();
+            arguments.putParcelable(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
+            ItemDetailFragment fragment = new ItemDetailFragment();
+            fragment.setArguments(arguments);
+            baseActivity.get().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.item_detail_container, fragment)
+                    .commit();
+        } else {
+            Intent intent = new Intent(baseActivity.get(), ItemDetailActivity.class);
+            intent.putExtra(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
+            baseActivity.get().startActivity(intent);
+        }
+    }
+
+    private void subscribeUsers() {
+        baseViewModel.getUsers().observe(baseActivity.get(), users -> {
+            if (users == null || users.size() <= 0) {
+                baseViewModel.fetchUsersFromServer(1);
             } else {
-                Intent intent = new Intent(baseActivity.get(), ItemDetailActivity.class);
-                intent.putExtra(ItemDetailFragment.ARG_USER, Parcels.wrap(user));
-                baseActivity.get().startActivity(intent);
+                mUsers = users;
+                setUpGrid();
             }
+        });
+    }
+
+    private void setUpGrid() {
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        GridLayoutManager layoutManager = new GridLayoutManager(baseActivity.get(), Constants.GRID_SPAN_COUNT);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(new UserAdapter(baseActivity.get(), this, mUsers));
+
+        mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                baseViewModel.fetchUsersFromServer(page);
+            }
+        };
+
+        mRecyclerView.addOnScrollListener(mScrollListener);
     }
 
     private void setUpNavigation(Toolbar toolbar) {

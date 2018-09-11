@@ -26,7 +26,7 @@ public class UserGridViewModel extends BaseViewModel<User, UserRepository> {
         return useCaseRepository.getDataList();
     }
 
-    public void fetchFromServer() {
-        useCaseRepository.requestDataToServer();
+    public void fetchUsersFromServer(int page) {
+        useCaseRepository.fetchUsersFromServer(page);
     }
 }

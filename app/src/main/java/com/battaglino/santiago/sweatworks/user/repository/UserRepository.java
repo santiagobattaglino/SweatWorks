@@ -1,12 +1,12 @@
 package com.battaglino.santiago.sweatworks.user.repository;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.battaglino.santiago.sweatworks.base.repository.UseCaseRepository;
 import com.battaglino.santiago.sweatworks.db.AppDatabase;
 import com.battaglino.santiago.sweatworks.db.entities.Result;
 import com.battaglino.santiago.sweatworks.db.entities.User;
+import com.battaglino.santiago.sweatworks.global.Constants;
 import com.battaglino.santiago.sweatworks.global.services.RandomUserApiService;
 
 import java.util.List;
@@ -54,19 +54,23 @@ public class UserRepository extends UseCaseRepository<User> {
 
     @Override
     public void requestDataToServer() {
-        mClient.getUsers(50, 1)
+
+    }
+
+    public void fetchUsersFromServer(int page) {
+        mClient.getUsers(Constants.PAGE_RESULTS, page)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Result<User>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        mDisposable.add(d);
+                        //mDisposable.add(d);
                     }
 
                     @Override
                     public void onNext(Result<User> dataListFromServer) {
                         addDataList(dataListFromServer.results);
-                        mDisposable.dispose();
+                        //mDisposable.dispose();
                     }
 
                     @Override
