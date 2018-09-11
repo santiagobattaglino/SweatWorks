@@ -32,7 +32,7 @@ ext {
     androidTargetSdkVersion = 27
 
     androidBuildToolsVersion = '27.0.3'
-    androidSupportLibVersion = '27.1.1'
+    androidSupportLibVersion = '27.1.0'
     androidConstraintLayoutVersion = '1.1.3'
 
     androidArchLifecycleVersion = '1.1.1'
