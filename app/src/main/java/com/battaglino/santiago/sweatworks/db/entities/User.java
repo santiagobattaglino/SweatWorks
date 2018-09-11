@@ -91,7 +91,7 @@ public class User {
         return items;
     }
 
-    private String getFullName() {
-        return String.format(Locale.getDefault(), "%s %s %s", name.first, name.last, name.title);
+    public String getFullName() {
+        return String.format(Locale.getDefault(), "%s %s %s", name.title, name.first, name.last);
     }
 }

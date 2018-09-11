@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_detail"
-    style="?android:attr/textAppearanceLarge"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context=".user.fragment.ItemDetailFragment" />
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/image"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/fullName"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textIsSelectable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/image" />
+
+    <TextView
+        android:id="@+id/email"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fullName"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/phone"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textIsSelectable="true" />
+
+</RelativeLayout>
+
+

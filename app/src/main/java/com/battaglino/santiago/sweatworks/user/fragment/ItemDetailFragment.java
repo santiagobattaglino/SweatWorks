@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.db.entities.User;
 import com.battaglino.santiago.sweatworks.global.Constants;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -21,8 +23,17 @@ import butterknife.ButterKnife;
 
 public class ItemDetailFragment extends Fragment {
 
-    @BindView(R.id.item_detail)
-    TextView textView;
+    @BindView(R.id.image)
+    ImageView image;
+
+    @BindView(R.id.fullName)
+    TextView fullName;
+
+    @BindView(R.id.phone)
+    TextView phone;
+
+    @BindView(R.id.email)
+    TextView email;
 
     private User mUser;
 
@@ -53,9 +64,13 @@ public class ItemDetailFragment extends Fragment {
         Activity activity = this.getActivity();
         CollapsingToolbarLayout appBarLayout = activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
-            appBarLayout.setTitle(mUser.name.first);
+            appBarLayout.setTitle(mUser.getFullName());
         }
 
-        textView.setText(mUser.email);
+        Picasso.get().load(mUser.picture.large).into(image);
+
+        fullName.setText(mUser.getFullName());
+        phone.setText(mUser.phone);
+        email.setText(mUser.email);
     }
 }
