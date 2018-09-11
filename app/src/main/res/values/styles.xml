@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base application theme. ThemeOverlay.AppCompat.Dark.ActionBar -->
     <style name="AppTheme" parent="Theme.Design">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

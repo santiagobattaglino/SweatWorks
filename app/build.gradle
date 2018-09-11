@@ -80,6 +80,9 @@ dependencies {
     // Picasso
     implementation "com.squareup.picasso:picasso:${rootProject.ext.picassoVersion}"
 
+    // MaterialSearchView
+    implementation "com.miguelcatalan:materialsearchview:${rootProject.ext.materialSearchViewVersion}"
+
     // Test
     testImplementation "junit:junit:${rootProject.ext.junitVersion}"
     androidTestImplementation "com.android.support.test:runner:${rootProject.ext.androidRunnerVersion}"

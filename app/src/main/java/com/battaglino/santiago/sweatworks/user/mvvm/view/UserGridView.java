@@ -15,6 +15,7 @@ import com.battaglino.santiago.sweatworks.user.activity.UserGridActivity;
 import com.battaglino.santiago.sweatworks.user.adapter.UserAdapter;
 import com.battaglino.santiago.sweatworks.user.fragment.ItemDetailFragment;
 import com.battaglino.santiago.sweatworks.user.mvvm.viewmodel.UserGridViewModel;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import org.parceler.Parcels;
 
@@ -32,6 +33,9 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.search_view)
+    public MaterialSearchView mSearchView;
 
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;

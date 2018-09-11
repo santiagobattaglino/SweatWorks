@@ -3,4 +3,5 @@
     <string name="title_item_detail">Item Detail</string>
     <string name="list_item">list_item</string>
     <string name="thumbnail">Thumbnail</string>
+    <string name="search">Search</string>
 </resources>
