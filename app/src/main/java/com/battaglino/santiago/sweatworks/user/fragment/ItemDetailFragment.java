@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +35,9 @@ public class ItemDetailFragment extends Fragment {
 
     @BindView(R.id.email)
     TextView email;
+
+    @BindView(R.id.add_favorites)
+    Button addFavorites;
 
     private User mUser;
 
@@ -66,6 +70,10 @@ public class ItemDetailFragment extends Fragment {
         if (appBarLayout != null) {
             appBarLayout.setTitle(mUser.getFullName());
         }
+
+        /*RxView.clicks(addFavorites)
+                .throttleFirst(6, TimeUnit.SECONDS)
+                .subscribe(click -> );*/
 
         Picasso.get().load(mUser.picture.large).into(image);
 

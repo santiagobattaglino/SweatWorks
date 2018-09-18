@@ -41,6 +41,9 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.recyclerviewHorizontal)
+    RecyclerView recyclerviewHorizontal;
+
     private UserAdapter mAdapter;
 
     private boolean mTwoPane;

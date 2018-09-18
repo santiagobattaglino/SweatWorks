@@ -18,17 +18,45 @@
     
     -->
 
-    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recyclerview"
-        android:name="com.battaglino.santiago.sweatworks.ItemListFragment"
-        android:layout_width="@dimen/item_width"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="android.support.v7.widget.GridLayoutManager"
-        tools:context="com.battaglino.santiago.sweatworks.user.activity.UserGridActivity"
-        tools:listitem="@layout/item_list_content" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/favorites" />
+
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/recyclerviewHorizontal"
+            android:name="com.battaglino.santiago.sweatworks.ItemListFragment"
+            android:layout_width="@dimen/item_width"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            tools:context="com.battaglino.santiago.sweatworks.user.activity.UserGridActivity"
+            tools:listitem="@layout/item_list_content" />
+
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/recyclerview"
+            android:name="com.battaglino.santiago.sweatworks.ItemListFragment"
+            android:layout_width="@dimen/item_width"
+            android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="2"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            tools:context="com.battaglino.santiago.sweatworks.user.activity.UserGridActivity"
+            tools:listitem="@layout/item_list_content" />
+
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/item_detail_container"

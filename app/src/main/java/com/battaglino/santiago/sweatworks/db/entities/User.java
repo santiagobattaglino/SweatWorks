@@ -76,6 +76,8 @@ public class User {
     @Expose
     public String nat;
 
+    public boolean isFavorite;
+
     @ParcelConstructor
     public User() {
 

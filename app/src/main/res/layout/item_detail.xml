@@ -44,6 +44,13 @@
         android:padding="16dp"
         android:textIsSelectable="true" />
 
+    <Button
+        android:id="@+id/add_favorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phone"
+        android:text="@string/add_to_favorites"/>
+
 </RelativeLayout>
 
 
