@@ -11,10 +11,10 @@ import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.base.mvvm.view.BaseView;
 import com.battaglino.santiago.sweatworks.db.entities.User;
 import com.battaglino.santiago.sweatworks.global.Constants;
-import com.battaglino.santiago.sweatworks.user.activity.ItemDetailActivity;
+import com.battaglino.santiago.sweatworks.user.activity.UserDetailActivity;
 import com.battaglino.santiago.sweatworks.user.activity.UserGridActivity;
 import com.battaglino.santiago.sweatworks.user.adapter.UserAdapter;
-import com.battaglino.santiago.sweatworks.user.fragment.ItemDetailFragment;
+import com.battaglino.santiago.sweatworks.user.fragment.UserDetailFragment;
 import com.battaglino.santiago.sweatworks.user.mvvm.viewmodel.UserGridViewModel;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -73,10 +73,10 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     public void onClick(View view, int position, User user) {
         if (mTwoPane) {
             baseActivity.get().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.item_detail_container, ItemDetailFragment.newInstance(user))
+                    .replace(R.id.item_detail_container, UserDetailFragment.newInstance(user))
                     .commit();
         } else {
-            Intent intent = new Intent(baseActivity.get(), ItemDetailActivity.class);
+            Intent intent = new Intent(baseActivity.get(), UserDetailActivity.class);
             intent.putExtra(Constants.ARG_USER, Parcels.wrap(user));
             baseActivity.get().startActivity(intent);
         }

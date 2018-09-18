@@ -14,7 +14,7 @@ import dagger.Provides;
 public class UserGridActivityModule {
 
     @Provides
-    UserGridView provideSyncView(UserGridActivity activity, UserGridViewModel viewModel) {
+    UserGridView provideUserGridView(UserGridActivity activity, UserGridViewModel viewModel) {
         return new UserGridView(activity, viewModel);
     }
 }

@@ -22,7 +22,7 @@ import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ItemDetailFragment extends Fragment {
+public class UserDetailFragment extends Fragment {
 
     @BindView(R.id.image)
     ImageView image;
@@ -41,12 +41,12 @@ public class ItemDetailFragment extends Fragment {
 
     private User mUser;
 
-    public ItemDetailFragment() {
+    public UserDetailFragment() {
 
     }
 
-    public static ItemDetailFragment newInstance(User user) {
-        ItemDetailFragment fragment = new ItemDetailFragment();
+    public static UserDetailFragment newInstance(User user) {
+        UserDetailFragment fragment = new UserDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(Constants.ARG_USER, Parcels.wrap(user));
         fragment.setArguments(args);

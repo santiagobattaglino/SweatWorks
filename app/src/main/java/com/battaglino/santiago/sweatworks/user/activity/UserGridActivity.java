@@ -19,7 +19,7 @@ public class UserGridActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_user_grid);
         super.onCreate(savedInstanceState);
     }
 

@@ -1,5 +1,6 @@
 package com.battaglino.santiago.sweatworks.di.modules;
 
+import com.battaglino.santiago.sweatworks.user.activity.UserDetailActivity;
 import com.battaglino.santiago.sweatworks.user.activity.UserGridActivity;
 
 import dagger.Module;
@@ -16,4 +17,7 @@ public abstract class ActivityBuilder {
 
     @ContributesAndroidInjector(modules = {UserGridActivityModule.class})
     abstract UserGridActivity bindUserGridActivity();
+
+    @ContributesAndroidInjector(modules = {UserDetailActivityModule.class})
+    abstract UserDetailActivity bindUserDetailActivity();
 }
