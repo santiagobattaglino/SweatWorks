@@ -55,7 +55,7 @@ public class UserDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.item_detail, container, false);
+        View view = inflater.inflate(R.layout.content_user_detail, container, false);
         ButterKnife.bind(this, view);
         if (getArguments() != null) {
             mUser = Parcels.unwrap(getArguments().getParcelable(Constants.ARG_USER));

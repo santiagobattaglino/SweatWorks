@@ -2,9 +2,11 @@ package com.battaglino.santiago.sweatworks.user.mvvm.view;
 
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.battaglino.santiago.sweatworks.R;
@@ -44,6 +46,9 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
 
     @BindView(R.id.recyclerviewHorizontal)
     RecyclerView recyclerviewHorizontal;
+
+    @BindView(R.id.favTitle)
+    TextView favTitle;
 
     private UserAdapter mAdapter;
     private UserAdapter mAdapterFavorites;
@@ -96,6 +101,7 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         baseViewModel.getFavorites().observe(baseActivity.get(), usersFavorites -> {
             if (usersFavorites == null || usersFavorites.size() <= 0) {
                 recyclerviewHorizontal.setVisibility(View.GONE);
+                favTitle.setVisibility(View.GONE);
             } else {
                 mUsersFavorites = usersFavorites;
                 mAdapterFavorites.reset();
@@ -119,7 +125,8 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     }
 
     private void setUpFavoritesGrid() {
-        GridLayoutManager layoutManager = new GridLayoutManager(baseActivity.get(), Constants.GRID_SPAN_COUNT);
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(baseActivity.get(), LinearLayoutManager.HORIZONTAL, true);
         recyclerviewHorizontal.setLayoutManager(layoutManager);
         mAdapterFavorites = new UserAdapter(baseActivity.get(), this, mUsersFavorites);
         recyclerviewHorizontal.setAdapter(mAdapterFavorites);
