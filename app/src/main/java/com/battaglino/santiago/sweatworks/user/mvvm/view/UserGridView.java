@@ -23,8 +23,6 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -55,7 +53,6 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     private List<User> mUsers = new ArrayList<>();
     private List<User> mUsersFavorites = new ArrayList<>();
 
-    @Inject
     public UserGridView(UserGridActivity activity, UserGridViewModel viewModel) {
         super(activity, viewModel);
         ButterKnife.bind(this, activity);
@@ -94,12 +91,14 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         });
     }
 
-    private void subscribeFavorites() {
+    public void subscribeFavorites() {
         baseViewModel.getFavorites().observe(baseActivity.get(), usersFavorites -> {
             if (usersFavorites == null || usersFavorites.size() <= 0) {
                 recyclerviewHorizontal.setVisibility(View.GONE);
                 favTitle.setVisibility(View.GONE);
             } else {
+                recyclerviewHorizontal.setVisibility(View.VISIBLE);
+                favTitle.setVisibility(View.VISIBLE);
                 mUsersFavorites = usersFavorites;
                 mAdapterFavorites.reset();
                 mAdapterFavorites.addAll(mUsersFavorites);

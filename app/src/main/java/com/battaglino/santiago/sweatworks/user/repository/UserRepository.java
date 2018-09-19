@@ -38,7 +38,7 @@ public class UserRepository extends UseCaseRepository<User> {
     }
 
     public void initLocalData() {
-        mDataBase = AppDatabase.getInMemoryDatabase(context);
+        mDataBase = AppDatabase.getDatabaseBuilder(context);
         setDataList(mDataBase.userModel().loadList());
     }
 

@@ -30,7 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
      *  We have to create an abstract method for every DAO class that we create.
      *  inMemoryDatabaseBuilder or databaseBuilder
      */
-    public static AppDatabase getInMemoryDatabase(Context context) {
+    public static AppDatabase getDatabaseBuilder(Context context) {
         if (INSTANCE == null) {
             if (BuildConfig.DEBUG) {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "vesta")
@@ -38,6 +38,20 @@ public abstract class AppDatabase extends RoomDatabase {
                         .build();
             } else {
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "vesta")
+                        .build();
+            }
+        }
+        return INSTANCE;
+    }
+
+    public static AppDatabase getInMemoryDatabase(Context context) {
+        if (INSTANCE == null) {
+            if (BuildConfig.DEBUG) {
+                INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), AppDatabase.class)
+                        .allowMainThreadQueries()
+                        .build();
+            } else {
+                INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), AppDatabase.class)
                         .build();
             }
         }

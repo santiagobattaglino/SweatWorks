@@ -12,13 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="@string/favorites" />
+        android:text="@string/favorites"
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerviewHorizontal"
         android:name="com.battaglino.santiago.sweatworks.ItemListFragment"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:visibility="gone"
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         tools:context="com.battaglino.santiago.sweatworks.user.activity.UserGridActivity"
         tools:listitem="@layout/user_list_image" />

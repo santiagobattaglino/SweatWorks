@@ -9,6 +9,4 @@ public class Constants {
     public static final int PAGE_RESULTS = 50;
 
     public static final String ARG_USER = "user";
-
-    public static final String FRAGMENT_USER = "FRAGMENT_USER";
 }

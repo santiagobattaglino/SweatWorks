@@ -20,8 +20,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -55,7 +53,6 @@ public class UserDetailView extends BaseView<UserDetailActivity, UserGridViewMod
     private List<User> mUsersFavorites = new ArrayList<>();
 
     @SuppressLint("CheckResult")
-    @Inject
     public UserDetailView(UserDetailActivity activity, UserGridViewModel viewModel) {
         super(activity, viewModel);
         user = baseActivity.get().getUser();
