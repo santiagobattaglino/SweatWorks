@@ -86,7 +86,8 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
             } else {
                 mUsers = users;
                 mAdapter.addAll(mUsers);
-                mSearchView.setSuggestions(User.getDataSource(mUsers).toArray(new String[0]));
+                String[] suggestions = User.getDataSource(mUsers).toArray(new String[0]);
+                mSearchView.setSuggestions(suggestions);
             }
         });
     }

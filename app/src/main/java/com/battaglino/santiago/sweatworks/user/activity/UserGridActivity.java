@@ -3,6 +3,7 @@ package com.battaglino.santiago.sweatworks.user.activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.base.activity.BaseActivity;
@@ -31,19 +32,16 @@ public class UserGridActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
-        view.mSearchView.setMenuItem(item);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.action_search) {
+            view.mSearchView.showSearch(true);
+            view.mSearchView.setVisibility(View.VISIBLE);
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
