@@ -76,6 +76,8 @@ public class User {
     @Expose
     public String nat;
 
+    @SerializedName("isFavorite")
+    @Expose
     public boolean isFavorite;
 
     @ParcelConstructor

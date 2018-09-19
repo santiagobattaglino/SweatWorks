@@ -9,7 +9,6 @@ import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.base.activity.BaseActivity;
 import com.battaglino.santiago.sweatworks.db.entities.User;
 import com.battaglino.santiago.sweatworks.global.Constants;
-import com.battaglino.santiago.sweatworks.user.fragment.UserDetailFragment;
 import com.battaglino.santiago.sweatworks.user.mvvm.view.UserDetailView;
 
 import org.parceler.Parcels;
@@ -30,17 +29,6 @@ public class UserDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_user_detail);
         user = Parcels.unwrap(getIntent().getParcelableExtra(Constants.ARG_USER));
         super.onCreate(savedInstanceState);
-
-        if (savedInstanceState == null) {
-            Bundle arguments = new Bundle();
-            arguments.putParcelable(Constants.ARG_USER,
-                    Parcels.wrap(user));
-            UserDetailFragment fragment = new UserDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.item_detail_container, fragment)
-                    .commit();
-        }
     }
 
     @Override

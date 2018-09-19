@@ -71,10 +71,6 @@ public class UserDetailFragment extends Fragment {
             appBarLayout.setTitle(mUser.getFullName());
         }
 
-        /*RxView.clicks(addFavorites)
-                .throttleFirst(6, TimeUnit.SECONDS)
-                .subscribe(click -> );*/
-
         Picasso.get().load(mUser.picture.large).into(image);
 
         fullName.setText(mUser.getFullName());

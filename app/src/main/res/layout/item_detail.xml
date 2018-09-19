@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_detail_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/image"
-        android:scaleType="centerCrop" />
-
-    <TextView
-        android:id="@+id/fullName"
-        style="?android:attr/textAppearanceLarge"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image"
-        android:gravity="center"
-        android:padding="16dp"
-        android:textIsSelectable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/image" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/email"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fullName"
-        android:gravity="center"
-        android:padding="16dp"
-        android:textIsSelectable="true" />
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/image"
+            android:scaleType="centerCrop" />
 
-    <TextView
-        android:id="@+id/phone"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/email"
-        android:gravity="center"
-        android:padding="16dp"
-        android:textIsSelectable="true" />
+        <TextView
+            android:id="@+id/fullName"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textIsSelectable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/image" />
 
-    <Button
-        android:id="@+id/add_favorites"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/phone"
-        android:text="@string/add_to_favorites"/>
+        <TextView
+            android:id="@+id/email"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fullName"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textIsSelectable="true" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/phone"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/email"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textIsSelectable="true" />
 
+        <Button
+            android:id="@+id/add_favorites"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/phone"
+            android:text="@string/add_to_favorites" />
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
 

@@ -33,7 +33,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getInMemoryDatabase(Context context) {
         if (INSTANCE == null) {
             if (BuildConfig.DEBUG) {
-                INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(), AppDatabase.class)
+                INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "vesta")
                         .allowMainThreadQueries()
                         .build();
             } else {

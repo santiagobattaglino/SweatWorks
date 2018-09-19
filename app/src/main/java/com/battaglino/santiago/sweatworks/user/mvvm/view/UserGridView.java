@@ -14,7 +14,6 @@ import com.battaglino.santiago.sweatworks.global.Constants;
 import com.battaglino.santiago.sweatworks.user.activity.UserDetailActivity;
 import com.battaglino.santiago.sweatworks.user.activity.UserGridActivity;
 import com.battaglino.santiago.sweatworks.user.adapter.UserAdapter;
-import com.battaglino.santiago.sweatworks.user.fragment.UserDetailFragment;
 import com.battaglino.santiago.sweatworks.user.mvvm.viewmodel.UserGridViewModel;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -22,6 +21,8 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,23 +46,25 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
     RecyclerView recyclerviewHorizontal;
 
     private UserAdapter mAdapter;
-
-    private boolean mTwoPane;
+    private UserAdapter mAdapterFavorites;
 
     private List<User> mUsers = new ArrayList<>();
+    private List<User> mUsersFavorites = new ArrayList<>();
 
+    @Inject
     public UserGridView(UserGridActivity activity, UserGridViewModel viewModel) {
         super(activity, viewModel);
         ButterKnife.bind(this, activity);
         setUpNavigation(toolbar);
         setUpSearchView();
+        setUpFavoritesGrid();
         setUpGrid();
-        setUpTwoPane();
     }
 
     @Override
     protected void subscribeUiToLiveData() {
         subscribeUsers();
+        subscribeFavorites();
     }
 
     @Override
@@ -71,15 +74,9 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
 
     @Override
     public void onClick(View view, int position, User user) {
-        if (mTwoPane) {
-            baseActivity.get().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.item_detail_container, UserDetailFragment.newInstance(user))
-                    .commit();
-        } else {
-            Intent intent = new Intent(baseActivity.get(), UserDetailActivity.class);
-            intent.putExtra(Constants.ARG_USER, Parcels.wrap(user));
-            baseActivity.get().startActivity(intent);
-        }
+        Intent intent = new Intent(baseActivity.get(), UserDetailActivity.class);
+        intent.putExtra(Constants.ARG_USER, Parcels.wrap(user));
+        baseActivity.get().startActivity(intent);
     }
 
     private void subscribeUsers() {
@@ -94,28 +91,37 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
         });
     }
 
+    private void subscribeFavorites() {
+        baseViewModel.getFavorites().observe(baseActivity.get(), usersFavorites -> {
+            if (usersFavorites == null || usersFavorites.size() <= 0) {
+                recyclerviewHorizontal.setVisibility(View.GONE);
+            } else {
+                mUsersFavorites = usersFavorites;
+                mAdapterFavorites.reset();
+                mAdapterFavorites.addAll(mUsersFavorites);
+            }
+        });
+    }
+
     private void setUpGrid() {
         GridLayoutManager layoutManager = new GridLayoutManager(baseActivity.get(), Constants.GRID_SPAN_COUNT);
         mRecyclerView.setLayoutManager(layoutManager);
-
         EndlessRecyclerViewScrollListener mScrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 baseViewModel.fetchUsersFromServer(page);
             }
         };
-
         mRecyclerView.addOnScrollListener(mScrollListener);
-
         mAdapter = new UserAdapter(baseActivity.get(), this, mUsers);
-
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void setUpTwoPane() {
-        if (baseActivity.get().findViewById(R.id.item_detail_container) != null) {
-            mTwoPane = true;
-        }
+    private void setUpFavoritesGrid() {
+        GridLayoutManager layoutManager = new GridLayoutManager(baseActivity.get(), Constants.GRID_SPAN_COUNT);
+        recyclerviewHorizontal.setLayoutManager(layoutManager);
+        mAdapterFavorites = new UserAdapter(baseActivity.get(), this, mUsersFavorites);
+        recyclerviewHorizontal.setAdapter(mAdapterFavorites);
     }
 
     private void setUpSearchView() {

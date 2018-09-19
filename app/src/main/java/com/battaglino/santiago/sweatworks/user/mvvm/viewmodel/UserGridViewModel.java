@@ -26,7 +26,15 @@ public class UserGridViewModel extends BaseViewModel<User, UserRepository> {
         return useCaseRepository.getDataList();
     }
 
+    public LiveData<List<User>> getFavorites() {
+        return useCaseRepository.getFavorites();
+    }
+
     public void fetchUsersFromServer(int page) {
         useCaseRepository.fetchUsersFromServer(page);
+    }
+
+    public void addFavorite(User user) {
+        useCaseRepository.addFavorite(user);
     }
 }

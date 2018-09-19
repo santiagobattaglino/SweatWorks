@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import com.battaglino.santiago.sweatworks.db.entities.User;
 
@@ -20,4 +21,10 @@ public interface UserDao {
 
     @Insert
     void insertAll(List<User> users);
+
+    @Query("select * from users where isFavorite = 1")
+    LiveData<List<User>> loadListFavorites();
+
+    @Update
+    void updateUser(User user);
 }
