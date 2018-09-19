@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.battaglino.santiago.sweatworks.R;
 import com.battaglino.santiago.sweatworks.base.mvvm.view.BaseView;
@@ -33,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by Santiago Battaglino.
  */
 public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
-        implements UserAdapter.OnViewHolderClick {
+        implements UserAdapter.OnViewHolderClick, MaterialSearchView.OnQueryTextListener {
 
     @BindView(R.id.search_view)
     public MaterialSearchView mSearchView;
@@ -79,9 +78,7 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
 
     @Override
     public void onClick(View view, int position, User user) {
-        Intent intent = new Intent(baseActivity.get(), UserDetailActivity.class);
-        intent.putExtra(Constants.ARG_USER, Parcels.wrap(user));
-        baseActivity.get().startActivity(intent);
+        openUserDetail(user);
     }
 
     private void subscribeUsers() {
@@ -126,41 +123,37 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
 
     private void setUpFavoritesGrid() {
         LinearLayoutManager layoutManager
-                = new LinearLayoutManager(baseActivity.get(), LinearLayoutManager.HORIZONTAL, true);
+                = new LinearLayoutManager(baseActivity.get(), LinearLayoutManager.HORIZONTAL, false);
         recyclerviewHorizontal.setLayoutManager(layoutManager);
         mAdapterFavorites = new UserAdapter(baseActivity.get(), this, mUsersFavorites);
         recyclerviewHorizontal.setAdapter(mAdapterFavorites);
     }
 
     private void setUpSearchView() {
-
         mSearchView.setEllipsize(true);
-
-        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(baseActivity.get(), query, Toast.LENGTH_SHORT).show();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-            }
-
-            @Override
-            public void onSearchViewClosed() {
-            }
-        });
+        mSearchView.setOnQueryTextListener(this);
     }
 
     private void setUpNavigation(Toolbar toolbar) {
         baseActivity.get().setSupportActionBar(toolbar);
+    }
+
+    private void openUserDetail(User user) {
+        Intent intent = new Intent(baseActivity.get(), UserDetailActivity.class);
+        intent.putExtra(Constants.ARG_USER, Parcels.wrap(user));
+        baseActivity.get().startActivity(intent);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        baseViewModel.getUserBySuggestion(query).observe(baseActivity.get(), user -> {
+            openUserDetail(user);
+        });
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

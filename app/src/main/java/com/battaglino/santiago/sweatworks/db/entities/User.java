@@ -89,7 +89,7 @@ public class User {
         final List<String> items = new ArrayList<>();
         if (users != null) {
             for (User user : users) {
-                items.add(user.getFullName());
+                items.add(user.getSuggestionString());
             }
         }
         return items;
@@ -97,5 +97,9 @@ public class User {
 
     public String getFullName() {
         return String.format(Locale.getDefault(), "%s %s %s", name.title, name.first, name.last);
+    }
+
+    private String getSuggestionString() {
+        return String.format(Locale.getDefault(), "%s %s", name.first, name.last);
     }
 }

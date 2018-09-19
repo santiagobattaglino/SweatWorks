@@ -2,7 +2,6 @@ package com.battaglino.santiago.sweatworks.user.repository;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 
 import com.battaglino.santiago.sweatworks.base.repository.UseCaseRepository;
 import com.battaglino.santiago.sweatworks.db.AppDatabase;
@@ -29,8 +28,6 @@ public class UserRepository extends UseCaseRepository<User> {
     private AppDatabase mDataBase;
     private RandomUserApiService mClient;
     private CompositeDisposable mDisposable;
-
-    private LiveData<List<User>> userFavorites = new MutableLiveData<>();
 
     @Inject
     UserRepository(Application context, RandomUserApiService client) {
@@ -92,12 +89,13 @@ public class UserRepository extends UseCaseRepository<User> {
     public void addFavorite(User user) {
         mDataBase.userModel().updateUser(user);
         setDataList(mDataBase.userModel().loadList());
-
-        //mDataBase.userModel().updateUser(user);
-        //userFavorites = mDataBase.favoritesModel().loadList();
     }
 
     public LiveData<List<User>> getFavorites() {
         return mDataBase.userModel().loadListFavorites();
+    }
+
+    public LiveData<User> getUserBySuggestion(String query) {
+        return mDataBase.userModel().loadUserBySuggestion("%"+query+"%");
     }
 }

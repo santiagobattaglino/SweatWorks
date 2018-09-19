@@ -37,4 +37,8 @@ public class UserGridViewModel extends BaseViewModel<User, UserRepository> {
     public void addFavorite(User user) {
         useCaseRepository.addFavorite(user);
     }
+
+    public LiveData<User> getUserBySuggestion(String query) {
+        return useCaseRepository.getUserBySuggestion(query);
+    }
 }

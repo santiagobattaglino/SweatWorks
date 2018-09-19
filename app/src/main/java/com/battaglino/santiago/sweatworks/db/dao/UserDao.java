@@ -25,6 +25,9 @@ public interface UserDao {
     @Query("select * from users where isFavorite = 1")
     LiveData<List<User>> loadListFavorites();
 
+    @Query("select * from users where name like :query")
+    LiveData<User> loadUserBySuggestion(String query);
+
     @Update
     void updateUser(User user);
 }
