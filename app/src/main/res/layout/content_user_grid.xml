@@ -17,7 +17,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerviewHorizontal"
-        android:name="com.battaglino.santiago.sweatworks.ItemListFragment"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:visibility="gone"
@@ -35,7 +34,6 @@
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/recyclerview"
-        android:name="com.battaglino.santiago.sweatworks.ItemListFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"

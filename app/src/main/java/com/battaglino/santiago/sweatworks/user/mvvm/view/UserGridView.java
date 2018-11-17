@@ -145,9 +145,7 @@ public class UserGridView extends BaseView<UserGridActivity, UserGridViewModel>
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        baseViewModel.getUserBySuggestion(query).observe(baseActivity.get(), user -> {
-            openUserDetail(user);
-        });
+        baseViewModel.getUserBySuggestion(query).observe(baseActivity.get(), this::openUserDetail);
         return false;
     }
 
