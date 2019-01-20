@@ -9,4 +9,5 @@ public class Constants {
     public static final int PAGE_RESULTS = 50;
 
     public static final String ARG_USER = "user";
+    public static final String DB_NAME = "lol";
 }

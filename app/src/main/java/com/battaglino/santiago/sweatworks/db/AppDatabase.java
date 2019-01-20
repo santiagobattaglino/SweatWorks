@@ -8,19 +8,23 @@ import android.content.Context;
 
 import com.battaglino.santiago.sweatworks.BuildConfig;
 import com.battaglino.santiago.sweatworks.db.converters.DateConverter;
+import com.battaglino.santiago.sweatworks.db.converters.MiniSeriesConverter;
 import com.battaglino.santiago.sweatworks.db.converters.NameConverter;
 import com.battaglino.santiago.sweatworks.db.converters.PictureConverter;
+import com.battaglino.santiago.sweatworks.db.dao.LigaDao;
 import com.battaglino.santiago.sweatworks.db.dao.UserDao;
+import com.battaglino.santiago.sweatworks.db.entities.Liga;
 import com.battaglino.santiago.sweatworks.db.entities.User;
+import com.battaglino.santiago.sweatworks.global.Constants;
 
 /**
  * Created by Santiago Battaglino.
  * This class is used to create the database and get an instance of it.
  */
 @Database(entities = {
-        User.class
+        Liga.class
 }, version = 1)
-@TypeConverters({DateConverter.class, PictureConverter.class, NameConverter.class})
+@TypeConverters({MiniSeriesConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -33,11 +37,11 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getDatabaseBuilder(Context context) {
         if (INSTANCE == null) {
             if (BuildConfig.DEBUG) {
-                INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "vesta")
+                INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, Constants.DB_NAME)
                         .allowMainThreadQueries()
                         .build();
             } else {
-                INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "vesta")
+                INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, Constants.DB_NAME)
                         .build();
             }
         }
@@ -62,7 +66,7 @@ public abstract class AppDatabase extends RoomDatabase {
         INSTANCE = null;
     }
 
-    public abstract UserDao userModel();
+    public abstract LigaDao ligaModel();
 
     // If you need to update your database version, and add entities or new columns,
     // you gonna have to implement a Migration operation in order to avoid crashes or users losing data
