@@ -79,4 +79,32 @@ public class LigaRepository extends UseCaseRepository<Liga> {
                     }
                 });
     }
+
+    public void getLigasFromServer(String summonerId, String apiKey) {
+        mClient.getLigas(summonerId, apiKey)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Liga>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(List<Liga> dataList) {
+                        addDataList(dataList);
+                        mDisposable.dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 }

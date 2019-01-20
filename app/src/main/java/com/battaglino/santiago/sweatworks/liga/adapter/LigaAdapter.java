@@ -44,6 +44,7 @@ public class LigaAdapter extends RecyclerView.Adapter<LigaAdapter.LigaViewHolder
     }
 
     private void setUpLiga(Liga liga, LigaAdapter.LigaViewHolder viewHolder) {
+        // para setear varios valores con String.format
         /*viewHolder.observacion.setText(String.format(Locale.getDefault(), "uid: %d cell: %s email: %s gender: %s nat: %s",
                 liga.uid,
                 liga.cell,
@@ -51,8 +52,10 @@ public class LigaAdapter extends RecyclerView.Adapter<LigaAdapter.LigaViewHolder
                 liga.gender,
                 liga.nat));*/
 
+        // para mostrar imagenes con Picasso
         //Picasso.get().load(liga.picture.thumbnail).into(viewHolder.thumbnail);
 
+        // seteando strings
         viewHolder.leagueId.setText(liga.leagueId);
         viewHolder.leageName.setText(liga.leagueName);
     }
