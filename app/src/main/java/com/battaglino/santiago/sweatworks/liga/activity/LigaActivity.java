@@ -23,7 +23,7 @@ public class LigaActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_user_grid);
+        setContentView(R.layout.activity_liga);
         super.onCreate(savedInstanceState);
     }
 
