@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -13,8 +14,9 @@ import retrofit2.http.Query;
  */
 public interface LOLApiService {
 
-    @GET("/lol/league/v4/positions/by-summoner/LGQWMD8CPwDndhObffAtIzoGMRj0Yqf6NOkPS-QiyMzy/")
+    @GET("/lol/league/v4/positions/by-summoner/{summoner}/")
     Observable<List<Liga>> getLigas(
+            @Path("summoner") String summoner,
             @Query("api_key") String apiKey
     );
 }

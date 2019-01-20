@@ -7,7 +7,6 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.battaglino.santiago.sweatworks.BuildConfig;
-import com.battaglino.santiago.sweatworks.db.converters.DateConverter;
 import com.battaglino.santiago.sweatworks.db.converters.MiniSeriesConverter;
 import com.battaglino.santiago.sweatworks.db.converters.NameConverter;
 import com.battaglino.santiago.sweatworks.db.converters.PictureConverter;
@@ -22,9 +21,10 @@ import com.battaglino.santiago.sweatworks.global.Constants;
  * This class is used to create the database and get an instance of it.
  */
 @Database(entities = {
+        User.class,
         Liga.class
 }, version = 1)
-@TypeConverters({MiniSeriesConverter.class})
+@TypeConverters({MiniSeriesConverter.class, NameConverter.class, PictureConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -65,6 +65,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static void destroyInstance() {
         INSTANCE = null;
     }
+
+    public abstract UserDao userModel();
 
     public abstract LigaDao ligaModel();
 

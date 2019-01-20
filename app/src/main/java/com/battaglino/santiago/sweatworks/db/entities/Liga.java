@@ -16,11 +16,15 @@ import io.reactivex.annotations.NonNull;
  * Created by Santiago Battaglino.
  */
 @Parcel
-@Entity(tableName = "ligas", indices = @Index(value = {"leagueId"}))
+@Entity(tableName = "ligas", indices = @Index(value = {"uid"}))
 public class Liga {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
+    @SerializedName("uid")
+    @Expose
+    public int uid;
+
     @SerializedName("leagueId")
     @Expose
     public String leagueId;

@@ -1,6 +1,7 @@
 package com.battaglino.santiago.sweatworks.di.modules;
 
 import com.battaglino.santiago.sweatworks.BuildConfig;
+import com.battaglino.santiago.sweatworks.global.services.LOLApiService;
 import com.battaglino.santiago.sweatworks.global.services.RandomUserApiService;
 
 import javax.inject.Singleton;
@@ -39,5 +40,17 @@ public class RetrofitModule {
                 .client(okHttpClient).build();
 
         return retrofit.create(RandomUserApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    LOLApiService provideLOLApiService(OkHttpClient okHttpClient) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.API_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient).build();
+
+        return retrofit.create(LOLApiService.class);
     }
 }
